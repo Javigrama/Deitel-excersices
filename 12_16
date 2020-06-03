@@ -1,0 +1,341 @@
+package ejer12_16;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+import java.util.Scanner;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+public class Kraps extends JFrame {
+
+	
+	private static final Random ran=new Random();
+	
+	private enum Status{ CONTINUE, WON, LOST};
+
+	
+	private static final int SNAKE_EYES=2;
+	private static final int TREY=3;
+	private static final int SEVEN=7;
+	private static final int YO_ELEVEN=11;
+	private static final int BOX=12;
+	private int rd1;
+	private int rd2;
+	
+	static Status gameStatus;
+	private int sum;
+	 private int mipunto;
+	 private int count;
+	
+	
+	
+	//------------------------------- gui---------------------------------------------
+	
+	private final JButton roll;
+	private final JLabel dados;
+	private final JTextField uno;
+	private final JLabel a;
+	private final JTextField dos;
+	private final JTextField suma;
+	private final JTextField punto;
+	
+	private final JLabel b;
+	private final JLabel c;
+	private final JLabel d;
+	private final JPanel downpanel;
+	private final JPanel uppanel;
+	private final JLabel inf;
+	private final JButton restart;
+	
+	
+	public Kraps() {
+		
+		super("Mi Kraps");
+		setLayout(new BorderLayout());
+		
+		
+		downpanel=new JPanel();
+		uppanel=new JPanel(new GridLayout(2, 2, 60, 20));
+		uppanel.setBorder(new EmptyBorder(20, 80, 30, 80));
+		
+		
+		add(downpanel, BorderLayout.SOUTH);
+		add(uppanel, BorderLayout.CENTER);
+		Icon bug=new ImageIcon(getClass().getResource("dados.png"));
+		dados=new JLabel(bug);
+		downpanel.add(dados);
+		roll=new JButton("Roll");
+		downpanel.add(roll);
+		inf=new JLabel("Waiting....");
+		downpanel.add(inf);
+		restart=new JButton("Restart");
+		downpanel.add(restart);
+		
+		//------------------------label a----------------------
+		
+		a=new JLabel("Dice 1");
+		uppanel.add(a);
+		uno=new JTextField(1);
+		uno.setEditable(false);
+		uppanel.add(uno);
+		
+		b=new JLabel("Dice 2");
+		uppanel.add(b);
+		dos=new JTextField(1);
+		dos.setEditable(false);
+		uppanel.add(dos);
+		
+		c=new JLabel("Total");
+		uppanel.add(c);
+		suma=new JTextField(2);
+		suma.setEditable(false);
+		uppanel.add(suma);
+		
+		d=new JLabel("Punto");
+		uppanel.add(d);
+		punto=new JTextField(2);
+		punto.setEditable(false);
+		uppanel.add(punto);
+		//-------------------------------listeners-----------------------------
+		
+	
+	
+	
+		roll.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+			
+				rd1=rollDice1();
+				rd2=rollDice2();
+				sum=rd1+rd2;
+				
+				mipunto=count==0? sum:mipunto;
+				
+				uno.setText(""+rd1);
+				dos.setText(""+rd2);
+				suma.setText(""+sum);
+				
+				punto.setText(""+mipunto);
+				
+				
+				
+				if(count==0)Status(sum);
+			
+			
+			
+				if((gameStatus==Status.CONTINUE)&&(count>0)) {
+					
+					
+					if(sum==mipunto) gameStatus=Status.WON;
+					if(sum==SEVEN) gameStatus=Status.LOST;
+				}
+				
+				count++;
+				
+					if(gameStatus==Status.WON) {
+						count=0;
+						inf.setText("You won!!!!!!!!!!");
+						
+						roll.setEnabled(false);
+						
+						
+					}
+					else if(gameStatus==Status.LOST) {
+						count=0;
+						inf.setText("Player loses");
+						
+						roll.setEnabled(false);
+							
+					
+					}
+				
+			}
+			
+			
+		});
+		
+		
+	
+		restart.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				roll.setEnabled(true);
+				punto.setText(""+0);
+				uno.setText(""+0);
+				dos.setText(""+0);
+				suma.setText(""+0);
+			}
+		});
+	
+			
+	}
+		
+			
+
+	
+	//-----------------------------------------
+	public static int rollDice1() {
+		
+		return 1 + ran.nextInt(6);
+	}
+	
+	public static int rollDice2() {
+		
+		return 1 + ran.nextInt(6);
+	}
+	
+	
+	
+	public void Status(int i) {
+		
+		
+		switch(i) {	
+		case SEVEN:
+		case YO_ELEVEN: 
+			gameStatus=Status.WON;
+			break;
+		case SNAKE_EYES:
+		case TREY:
+		case BOX:
+			gameStatus=Status.LOST;
+			break;
+		default:
+			gameStatus=Status.CONTINUE;
+			break;
+		}
+			
+	}
+		
+	//-----------------------------------------
+	
+
+
+
+	public static String charla(int n) {
+		
+		String str = " ...";
+	
+		String a="La muerte tiene un precio!";
+		String b="Cuidado!!";
+		String c="Pero que estas haciendo con tu vida!!??";
+		String d="Piénsatelo!";
+		String e="De verdad quieres hacerlo??";
+		String f="No quiero mirar";
+		String g="Vamos!";
+		String h="La persistencia es amiga del ingenio!!";
+		String i="Puedo creerlo?";
+		String j="Que haces esta noche?";
+		String k="fiuuuuuuuu";
+		String l="Allá vamos";
+		String m="...Islaaaaa de Encantaaaaaa";
+		String o="Me voy, me voy, me voy!!!!";
+		String p="Llévame contigo";
+		String q="de aquí a a la lunaaaa?";
+		String r="Hello jhon";
+		String s="Sayonara babyyyy!";
+		
+	if(n<250){	
+		
+		switch(1+ ran.nextInt(6)){
+		
+		case 1:  str=a;
+			break;
+		
+		case 2: str=b;
+			break;
+		
+		case 3:  str=c;
+			break;
+		
+		case 4:  str=d;
+			break;
+		
+		case 5:  str=e;
+			break;
+		
+		case 6:  str=f;
+			break;
+		}
+	}
+	
+ if((n>=250)&&(n<=1000)){	
+	
+	switch(1+ ran.nextInt(6)){
+	
+	case 1:  str=g;
+		break;
+	
+	case 2: str=h;
+		break;
+	
+	case 3:  str=i;
+		break;
+	
+	case 4:  str=j;
+		break;
+	
+	case 5:  str=k;
+		break;
+	
+	case 6:  str=l;
+		break;
+	}
+}
+	
+if(n>1000){	
+	
+	switch(1+ ran.nextInt(6)){
+	
+	case 1:  str=m;
+		break;
+	
+	case 2: str=o;
+		break;
+	
+	case 3:  str=p;
+		break;
+	
+	case 4:  str=q;
+		break;
+	
+	case 5:  str=r;
+		break;
+	
+	case 6:  str=s;
+		break;
+	}
+}
+	
+	return str;
+	}
+	
+	
+
+
+	public static void main(String[] args) {
+		
+		Kraps mikr=new Kraps();
+		mikr.setVisible(true);
+		mikr.setSize(500, 250);
+		mikr.setLocation(300, 300);
+		mikr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
+	}
+}
