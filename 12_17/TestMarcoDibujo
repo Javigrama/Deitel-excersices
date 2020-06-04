@@ -1,0 +1,34 @@
+package eje12_17;
+
+import javax.swing.JFrame;
+
+import eje1211.Impresora;
+
+public class TestMarcoDibujo {
+	
+	
+	private static void createAndShowGUI() {
+        //Create and set up the window.
+        MarcoDibujo frame = new MarcoDibujo();
+       	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	      frame.setSize(500, 400); 
+	      frame.setVisible(true); 
+ 
+        //Display the window.
+        // frame.pack();
+        
+        
+    }
+ 
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		 javax.swing.SwingUtilities.invokeLater(new Runnable() {
+	            public void run() {
+	                createAndShowGUI();
+	            }
+	        });
+	}
+
+}
