@@ -1,0 +1,136 @@
+package eje12_17;
+
+import java.awt.BorderLayout;
+import java.awt.Checkbox;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.text.AttributeSet.ColorAttribute;
+
+public class MarcoDibujo extends JFrame {
+	
+	private JPanel northpanel;
+	private JButton deshacer;
+	private JButton limpiar;
+	private JComboBox<String> paleta;
+	private String[] colores= { "Black", "Blue", "Cyan", "DarkGray", "Gray", "Green", "LightGray",
+			 "Magente", "Orange", "pink", "Red", "White", "Yellow"};
+	 private static final Color[] colors = {Color.BLACK, Color.BLUE,
+		      Color.CYAN, Color.DARK_GRAY, Color.GRAY, Color.GREEN, 
+		      Color.LIGHT_GRAY, Color.MAGENTA, Color.ORANGE, Color.PINK, 
+		      Color.RED, Color.WHITE, Color.YELLOW};
+	private JComboBox<String> figuras;
+	private String[]figdraw= {"Línea", "Rectángulo", "Óvalo"};
+	private JCheckBox fill;
+	private JLabel statusBar;
+	
+
+	public MarcoDibujo() {
+		
+		super("Dibujos en Java");
+		setLayout(new BorderLayout(10, 10));
+		
+		statusBar=new JLabel("StatusBar");
+		PanelDibujo panelDibujo=new PanelDibujo(statusBar);
+		panelDibujo.setOpaque(false);
+		add(panelDibujo, BorderLayout.CENTER);
+		add(statusBar, BorderLayout.SOUTH);
+		
+		northpanel=new JPanel();
+		northpanel.setLayout(new FlowLayout());
+		add(northpanel, BorderLayout.NORTH);
+		deshacer=new JButton("Deshacer");
+		northpanel.add(deshacer);
+		
+		deshacer.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				panelDibujo.borrarUltimaFigura();
+			}
+		});
+		
+		
+		limpiar=new JButton("Limpiar");
+		northpanel.add(limpiar);
+		
+		limpiar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				panelDibujo.borrarDibujo();
+			}
+		});
+		
+		
+		paleta=new JComboBox<String>(colores);
+		paleta.setMaximumRowCount(colores.length);
+		northpanel.add(paleta);
+		
+		paleta.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				
+				if(e.getStateChange()==ItemEvent.SELECTED) 
+					panelDibujo.setColorActual(colors[paleta.getSelectedIndex()]);
+				
+			}
+		});
+		
+		
+		figuras=new JComboBox<String>(figdraw);
+		figuras.setMaximumRowCount(3);
+		northpanel.add(figuras);
+		
+		
+		figuras.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				
+				if(e.getStateChange()==ItemEvent.SELECTED)
+					panelDibujo.settipoFigura(figuras.getSelectedIndex());
+				
+			}
+		});
+		
+		
+		fill=new JCheckBox("Relleno");
+		northpanel.add(fill);
+		
+		fill.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				if(fill.isSelected()) panelDibujo.setfiguraRellena(true);
+				
+				else panelDibujo.setfiguraRellena(false);
+				
+			}
+		});
+		
+		
+		
+	}
+		
+	
+		
+	}
+
+
