@@ -1,0 +1,161 @@
+package eje12_17;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.Random;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+
+
+import cap10.Linea;
+import cap10.MiFigura;
+import cap10.Ovalo;
+import cap10.Rectangulo;
+import cap10.Geom;
+
+public class PanelDibujo extends JPanel{
+
+	
+	MiFigura[] figuras; //almacena las figuras que dibuja el usuario
+	private int cuentaFiguras;//cuenta el numero de figuras en el arreglo
+	protected int tipoFigura;   //determina el tipo de figura a dibujar
+	private MiFigura figuraActual; //reresenta la figura actual que está dibujando el usuario
+	protected Color colorActual;//color de la figura actual
+	protected boolean figuraRellena; //deterina si se va a dibujar una figura rellena
+	private JLabel etiquetaEstado; //coordenadas del raton 
+	
+	
+	
+	public PanelDibujo(JLabel e) {
+		
+		etiquetaEstado=e;
+		figuras=new MiFigura[100];
+		cuentaFiguras=0;
+		tipoFigura=0;
+		figuraActual=null;
+		colorActual=Color.BLACK;
+		
+		setBackground(Color.WHITE);
+		PanelDibujoHandler handler=new PanelDibujoHandler();
+	    addMouseListener(handler);
+	    addMouseMotionListener(handler);
+		
+	}
+	
+
+    public void paintComponent(Graphics g) {
+    	
+    	super.paintComponent(g);
+    	
+    		if(figuraActual!=null) figuraActual.draw(g);
+    		
+    		//if(cuentaFiguras==figuras.length)
+    		//for(int i=0; i<figuras.length; i++)
+    			//figuras[i].draw(g);
+    		//
+    		
+    		for(MiFigura i: figuras)
+    			if(i!=null)i.draw(g);
+    		
+    }
+    
+    
+    public void settipoFigura(int i) {
+    	
+    	
+    	tipoFigura= i>=0&&i<=2? i: 45;
+    }
+  
+    
+    
+    public void setColorActual(Color c) {
+    	
+    	colorActual=c;
+    }
+    
+    
+    public void setfiguraRellena(boolean b) {
+    	
+    	figuraRellena=b;
+    }
+    
+    
+    public void borrarUltimaFigura() {
+    	
+    	if(cuentaFiguras>0) { 
+    		repaint();
+    		figuras[cuentaFiguras]=null;
+    		cuentaFiguras--;
+    		
+    	}
+    	else cuentaFiguras=0;
+    	repaint();
+    	//else throw new ArrayIndexOutOfBoundsException ("fuera de rango");
+    }
+    
+    
+    public void borrarDibujo() {
+    	
+    	for(int i=0; i<figuras.length; i++)
+    	figuras[i]=null;
+    	cuentaFiguras=0;
+    	repaint();
+    }
+    
+
+    
+    private class PanelDibujoHandler extends MouseAdapter implements MouseMotionListener{
+    	
+    	public void mousePressed(MouseEvent e) {
+    		
+    	
+    		if(tipoFigura==0) figuraActual=new Linea(e.getX(), e.getY(), e.getX(), e.getY(), colorActual);
+   
+    		else if(tipoFigura==1) figuraActual=new Rectangulo(e.getX(), e.getY(), e.getX(), e.getY(), colorActual, figuraRellena);
+    		
+    		else if (tipoFigura==2)   figuraActual=new Ovalo(e.getX(), e.getY(), e.getX(), e.getY(), colorActual, figuraRellena);
+    	
+    		
+    	}
+    	
+    	
+    	public void mouseReleased(MouseEvent e) {
+    		
+    		figuraActual.setX2(e.getX());
+    		figuraActual.setY2(e.getY());
+    		
+    		
+    		figuras[cuentaFiguras]=figuraActual;
+    		cuentaFiguras++;
+    		repaint();   
+    	}
+    
+    	
+    	public void mouseMoved(MouseEvent e) {
+    		
+    		 etiquetaEstado .setText(String.format("Moved at [%d, %d]", 
+    		            e.getX(), e.getY()));
+    	}
+    	
+    	
+    	public void mouseDragged(MouseEvent e) {
+    		
+    		figuraActual.setX2(e.getX());
+    		figuraActual.setY2(e.getY());
+    	 
+    	    etiquetaEstado.setText("Dragged at "+ "["+e.getX()+"] ["+e.getY()+"]");
+			 
+    		repaint();
+    	}
+  
+}
+}
+
+
+
