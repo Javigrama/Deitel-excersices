@@ -31,9 +31,6 @@ import javax.swing.border.EmptyBorder;
 
 
 
-
-import ejer13_23.Graficos.Estado;
-
 public class GuiGraficos extends JPanel implements ActionListener{
 
 	private JPanel west;
@@ -56,7 +53,7 @@ public class GuiGraficos extends JPanel implements ActionListener{
 	int c;		//posición actual y
 	int v;		//desplazamiento
 	
-//	Point posAct;
+
 	String[] Comandos;
     int[][]piso;
     
