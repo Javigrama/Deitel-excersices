@@ -76,7 +76,10 @@ public class Graficos {
 		entrada=input.next();
 		
 		validar();
-		if(entrada.equalsIgnoreCase("9")||Comandos[19]!=null)val=true; //si el valor es 9 fin de while
+		if(entrada.equalsIgnoreCase("9")||Comandos[18]!=null){
+		Comandos[19]="6";
+		val=true;
+		} 
 		input.nextLine();
 		}while(!val);
 		System.out.println("fin val");	
