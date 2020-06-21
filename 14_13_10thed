@@ -1,0 +1,20 @@
+package ejer14_13;
+
+import java.util.Scanner;
+
+public class tokens {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Scanner entrada= new Scanner(System.in);
+		System.out.println("Escriba una frase");
+		String frase=entrada.nextLine();
+		
+		String[] splitter=frase.split(" ");
+		
+		for(String i: splitter)
+			System.out.print(i.charAt(0) =='b'||i.charAt(0)=='B' ? i+" ":"");
+	}
+
+}
