@@ -92,7 +92,7 @@ public class Cheque {
 				monto2=montoaux;
 				vcheque=true;
 			}
-			else System.out.println("Inténtelo de nuevo");
+			else System.out.println("IntÃ©ntelo de nuevo");
 		}
 		
 		return true;
