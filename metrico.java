@@ -1,0 +1,198 @@
+package ejer_14_23;
+
+import java.util.Scanner;
+import java.util.regex.Pattern;
+
+public class metrico {
+	
+	String[] Longitud= {"pulgadas", "pies", "yardas", "millas", "milimetros", "centimetros", "metros", "Kilometros"};
+	String[] masa= {"dracmas", "onzas", "libras", "toneladas largas", "miligramos", "gramos", "Kilogramos", "toneladas"};
+	String[] volumen= {"mililitros", "litros", "pintas", "galon", "", "", "", ""}; 
+	
+
+
+	String frase="";
+	String distancia1="";
+	String distancia2="";
+	String m1="";
+	String m2="";
+	String vol1="";
+	String vol2="";
+	String regex="(Cuantos|Cuantas|cuantas|cuantos)\\s?\\w+\\s(hay en)\\s\\d+\\s\\w+\\??";
+	String variable1;
+	String variable2;
+	private int n;
+	
+	
+	public metrico() {
+		
+	}
+		
+	
+	
+	public void validarEntrada() {
+		
+		Scanner entrada=new Scanner(System.in);
+		System.out.print("Escriba que desea convertir preguntando 'Cuantos/as (magnitud) hay en (numero) (magnitud)?'\n"
+				+ "Por ejemplo: Cuantas pulgadas hay en 1 centímetro?\n");
+		
+		boolean ventrada=false;
+
+			
+		while(!frase.matches(regex)) {
+//		while(!frase.matches("(Cuantos|Cuantas)\\s?\\w+\\s(hay en)\\s\\d+\\s\\w+\\??")){
+			frase=entrada.nextLine();
+			
+			if(!frase.matches(regex)) System.out.println("Try again...");
+			else if (frase.matches(regex)){
+		
+		String[]splitter= frase.split("\\s|\\?");
+		
+		
+		for(String i: Longitud)
+			if(splitter[1].equalsIgnoreCase(i)) {
+				for(String j: Longitud)
+					if(splitter[5].equalsIgnoreCase(j)) {
+						ventrada=true;	
+						variable1=splitter[1];
+						variable2=splitter[5];
+						n=Integer.parseInt(splitter[4]);
+	
+		System.out.println("Pregunta bien formulada");
+		break;
+					}
+					
+			}
+			
+		
+		for(String i: masa)
+			if(splitter[1].equalsIgnoreCase(i)) {
+				for(String j: masa)
+					if(splitter[5].equalsIgnoreCase(j)) {
+						ventrada=true;	
+						m1=splitter[1];
+						m2=splitter[5];
+						n=Integer.parseInt(splitter[4]);
+	
+		System.out.println("Pregunta bien formulada");
+		break;
+					}
+					
+			}
+
+		
+		for(String i: volumen)
+			if(splitter[1].equalsIgnoreCase(i)) {
+				for(String j: volumen)
+					if(splitter[5].equalsIgnoreCase(j)) {
+						ventrada=true;		
+						vol1=splitter[1];
+						vol2=splitter[5];
+						n=Integer.parseInt(splitter[4]);
+		
+		System.out.println("pregunta bien formulada");
+		break;
+					}
+					
+			}
+		
+						
+			
+		if(!ventrada) { frase="";
+		System.out.println(splitter[1]+ " y " +splitter[5]+ " no son magnitudes de la misma índole, asi que intenta de nuevo...");}
+		
+			}
+		}
+		
+	}
+	//		Cuantas pulgadas hay en 1 centimetros?
+	
+	public void convertidor() {
+		
+		switch(variable1) {
+		
+		case "pulgadas":
+			
+				switch (variable2) {
+				
+				case "pies":
+					System.out.println("En "+n +" pies hay "+pulgadasPies()+" pulgadas");
+					break;
+				
+				case "yardas":
+					System.out.println("En "+n +" yardas hay "+pulgadasYardas()+" pulgadas");
+					break;
+				
+				case "millas":
+					System.out.println("En "+n +" millas hay "+pulgadasMillas()+" pulgadas");
+					break;
+					
+				case "milimetros":
+					System.out.println("En "+n +" milímetros hay "+pulgadasMilimetros()+" pulgadas");
+					break;
+					
+				case "centimetros":
+					System.out.println("En "+n +" yardas hay "+pulgadasYardas()+" pulgadas");
+					break;
+					
+				case "metros":
+					System.out.println("En "+n +" yardas hay "+pulgadasYardas()+" pulgadas");
+					break;
+					
+				case "Kilometros":
+					System.out.println("En "+n +" yardas hay "+pulgadasYardas()+" pulgadas");
+					break;
+					
+				
+				
+				}
+		}
+	}
+	
+	
+	public int pulgadasPies() {
+		
+		int pulgadas=n*12;
+		return pulgadas;
+	}
+	
+	public double pulgadasYardas() {
+		
+		double pulgadas= n*36;	
+		return pulgadas;
+	}
+	
+	public double pulgadasMillas() {
+		
+		double pulgadas=n*63360;
+		return pulgadas;
+	}
+	
+	public double pulgadasMilimetros() {
+		
+		double pulgadas=n/25.4;
+				return pulgadas;
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		String choice="";
+		metrico conversion=new metrico();
+//		conversion.validarEntrada();
+		
+//		while(!choice.matches("Si|s|S|Yes|yes|y"))
+		while(!choice.matches("NO|No|no|n|N")) {
+		conversion.validarEntrada();
+		conversion.convertidor();
+		Scanner entrada=new Scanner(System.in);
+		conversion.frase="";
+		System.out.println("Desea hacer otra conversión?");
+		choice=entrada.nextLine();
+		}
+		
+		System.out.println("ciao");
+		
+	}
+
+}
