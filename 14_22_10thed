@@ -1,0 +1,101 @@
+
+package ejer14_22;
+
+import java.util.Scanner;
+import java.util.regex.Pattern;
+
+public class Morse {
+	
+	String frase="";
+	String codigo="";
+	String[] palabras;
+	
+
+	char[] uni= {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+			'1','2','3','4','5','6','7','8','9','0'};
+	
+	String[] morse= {".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..",
+			"--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--..",
+			".----", "..---", "...--", "....-", ".....", "-....", "--...", "---..", "----.", "-----"};
+	
+	
+	
+	public void uni(String str) {
+		String translate="";
+		
+		for(int i=0; i<str.length(); i++) {
+			for(int j=0; j<uni.length; j++) {
+			
+			if (String.valueOf(str.charAt(i)).equalsIgnoreCase(String.valueOf(uni[j])))
+					translate+=morse[j]+" ";
+		    
+			}
+			if(str.charAt(i)==' ' ) translate+="   ";
+		}
+		
+		System.out.println(translate);	
+	}
+	
+	
+	
+	public void split() {
+		
+		codigo=codigo.replaceAll("   ", " ? ");
+		palabras=codigo.split("\\s");
+		
+		System.out.print(palabras.length);
+		System.out.print("palabras");
+		
+		for (int j=0; j<palabras.length; j++)
+			mor(palabras[j]);
+	}	
+	
+	public void mor(String str) {
+		String translate="";
+		
+		
+			for(int j=0; j<morse.length; j++) {
+			
+			if (str.equals(morse[j]))
+					translate+=uni[j];
+		    		
+			}
+			if(str.equals("?"))  translate+=" ";
+		System.out.print(translate);
+		
+	}
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Morse obj=new Morse();
+		Scanner entrada= new Scanner(System.in).useDelimiter("#");
+		System.out.println("Que desea hacer?:\n"
+				+ "Traducir a morse(pulse 1): \n"
+				+ "Traducir a español(pulse 2): ");
+		
+		String choice=entrada.nextLine();
+		switch (choice) {
+			
+		case "1": System.out.println("Introduzca la frase");
+	
+			obj.frase=entrada.nextLine();
+			obj.uni(obj.frase);
+			break;
+		
+		case "2": System.out.println("Introduzca el código y al final el carácter #");
+		
+	
+			obj.codigo=entrada.next();
+			System.out.println (obj.codigo);
+			obj.split();	
+				
+			break;
+
+		
+				
+		}
+	}
+
+}
