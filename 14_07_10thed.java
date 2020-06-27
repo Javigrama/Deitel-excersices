@@ -52,22 +52,8 @@ public class Cerdo extends JFrame implements KeyListener {
       frame.setVisible(true);
       frame.setSize(600, 300);
       frame.setLocation(500, 500);
-		/*Scanner entrada= new Scanner(System.in);
-//		System.out.println("Introduzca una frase");
-//		String frase =entrada.nextLine();
-		
-		
-//		String[] latin=frase.split("\\s");
-		
-		for(int i=0; i<latin.length; i++) {
-			latin[i]=latin[i]+latin[i].charAt(0)+"ae";
-		latin[i]=latin[i].replaceFirst("\\D", " " );
-//			latin[i]=latin[i]+"ae";
-		}
-		for(String i:latin)
-			System.out.print(i+" ");*/
-		
-		
+
+				
 	}
 	
 	public void imprimirPalabraEnLatin(String[] array) {
@@ -75,9 +61,7 @@ public class Cerdo extends JFrame implements KeyListener {
 		for(int i=0; i<array.length; i++) {
 			latin[i]=array[i]+array[i].charAt(0)+"ae";
 			 latin[i]=array[i].replaceFirst("\\D", "" );
-//			latin[i]=latin[i]+"ae";
-		
-		
+
 		}
 		
 		
@@ -118,17 +102,14 @@ public class Cerdo extends JFrame implements KeyListener {
 		   // handle press of an action key
 		   @Override
 		   public void keyTyped(KeyEvent e) {
-//			   while(e.getKeyCode()!=13) {
+
 		   
 		      line1 += e.getKeyChar();
 		      textArea.setText(line1);
 		      System.out.print(line1);
-//		      
 		      
-		  
+		      
 		   }
 
-		 
-
-		
+		 	
 }
