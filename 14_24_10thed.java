@@ -29,10 +29,10 @@ public class Corrector {
 		
 		for(String i: listaDePalabras)
 			if(palabra.equalsIgnoreCase(i)) {
-				System.out.println("La palabra est· escrita correctamente");
+				System.out.println("La palabra est√° escrita correctamente");
 				find=true;
 			}
-		if(!find) System.out.println("La palabra NO est· escrita correctamente");
+		if(!find) System.out.println("La palabra NO est√° escrita correctamente");
 			
 	
 		if(!find) cor.primeraSegunda(sb);
@@ -42,7 +42,7 @@ public class Corrector {
 		
 		if(!find) {
 			
-			System.out.println("No hemos encontrado la palabra. Desea aÒadirla a la eciclopedia?");
+			System.out.println("No hemos encontrado la palabra. Desea a√±adirla a la eciclopedia?");
 			if(entrada.nextLine().matches("SI|Si|si|sI|s|S|YES|Y|Yes|y")) cor.anexarPalabra();
 			
 		}
@@ -76,7 +76,7 @@ public class Corrector {
 							listaDePalabras[j]=aux;
 						}
 					}
-				System.out.println("No tenemos constancia de esta palabra por lo que la aÒadimos a la enciclopedia");
+				System.out.println("No tenemos constancia de esta palabra por lo que la a√±adimos a la enciclopedia");
 				System.out.print("Nuestra lista tiene "+listaDePalabras.length+" palabras\n");
 			find=true;
 			
@@ -91,7 +91,7 @@ public class Corrector {
 			s.deleteCharAt(0);
 				 for(String i: listaDePalabras)		
 						if(String.valueOf(s).equalsIgnoreCase(i)) {
-							System.out.println("quiz· usted quiso decir "+ s+" ?");
+							System.out.println("quiz√° usted quiso decir "+ s+" ?");
 							respuesta=entrada.nextLine();
 							if(respuesta.matches("SI|Si|si|sI|s|S|YES|Y|Yes|y")) find=true;
 						}
@@ -126,7 +126,7 @@ public class Corrector {
 			
 			 for(String i: listaDePalabras)		
 					if(String.valueOf(s).equalsIgnoreCase(i)) {
-						System.out.println("quiz· usted quiso decir "+ s+" ?");
+						System.out.println("quiz√° usted quiso decir "+ s+" ?");
 						respuesta=entrada.nextLine();
 						if(respuesta.matches("SI|Si|si|sI|s|S|YES|Y|Yes|y")) find=true;
 					}
