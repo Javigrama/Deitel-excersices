@@ -9,10 +9,6 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import javax.swing.plaf.SliderUI;
-
-import fig14_09.StringValueOf;
-
 public class AsociarArchivos2 {
 
 		static Scanner inputtrans;
@@ -136,7 +132,7 @@ public class AsociarArchivos2 {
 			
 		public static void registro() {
 			
-			// Populate log.txt with data looking for transactions with unknown account number
+			
 			try {
 				inputtrans = new Scanner(Paths.get("trans.txt"));
 			} catch (IOException e) {
@@ -144,9 +140,9 @@ public class AsociarArchivos2 {
 			}
 			
 			while (inputtrans.hasNext()){
-				RegistroTransaccion record = new RegistroTransaccion();
-				record.setAccount(inputtrans.nextInt());
-				record.setAmount(inputtrans.nextDouble());
+				RegistroTransaccion rec = new RegistroTransaccion();
+				rec.setAccount(inputtrans.nextInt());
+				rec.setAmount(inputtrans.nextDouble());
 				
 				// Open account file for this loop iteration
 				try {
@@ -154,14 +150,14 @@ public class AsociarArchivos2 {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				boolean knownAccount = false;
+				boolean desconocida = false;
 				while (inputAnt.hasNext()){
 					Account account = new Account(inputAnt.nextInt(), inputAnt.next(), inputAnt.next(), inputAnt.nextDouble());
 					if (account.getAccount() == record.getAccount()){
-						knownAccount = true;
+						desconocida = true;
 					}
 				}
-				if (!knownAccount){
+				if (!desconocida){
 					
 					try {
 					       if (register == null)
@@ -171,7 +167,7 @@ public class AsociarArchivos2 {
 					            e.printStackTrace();
 					        }
 					
-					register.format("%s%d%n", "cuentas no encontradas ", record.getAccount());
+					register.format("%s%d%n", "cuentas no encontradas ", rec.getAccount());
 				}
 			}
 		}
@@ -179,7 +175,7 @@ public class AsociarArchivos2 {
 			 
 	/*public static void nuevo() {
 			
-			// Populate log.txt with data looking for transactions with unknown account number
+			
 		try {
 			inputAnt= new Scanner(Paths.get("antmaest.txt"));
 		} catch (IOException e) {
