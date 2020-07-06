@@ -1,0 +1,226 @@
+package ejer15_4;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Formatter;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+import java.util.regex.Pattern;
+
+import javax.swing.plaf.SliderUI;
+
+import fig14_09.StringValueOf;
+
+public class AsociarArchivos2 {
+
+		static Scanner inputtrans;
+		static Scanner inputAnt;
+		static Scanner input;
+		static Account acc=new Account();
+		static RegistroTransaccion ra=new RegistroTransaccion();
+		static Formatter writer=null;
+		static Formatter register=null;
+
+	
+
+		
+
+		public static void main(String Args[]) {
+			
+		readAntMaest();
+		registro();
+		close();
+		
+		
+			
+		}
+		
+		public static void close() {
+		
+			if(inputAnt!=null)
+				inputAnt.close();
+			if(inputtrans!=null)
+				inputtrans.close();
+			if(input!=null)
+				input.close();
+			if(writer!=null)
+				writer.close();
+			if(register!=null)
+				register.close();
+		}
+		
+		
+		
+	
+
+		private static void readAntMaest() {
+			
+			
+			try {
+				inputAnt=new Scanner(Paths.get("antmaest.txt"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			while(inputAnt.hasNext()) {
+						
+				acc.setAccount(inputAnt.nextInt());
+				acc.setFirstName(inputAnt.next());
+				acc.setLastName(inputAnt.next());
+				acc.setBalance(inputAnt.nextDouble());
+				
+				readTrans();
+
+				}
+				inputAnt.close();
+			
+			
+
+		}
+		public static void readTrans() {
+			
+			try {
+				inputtrans=new Scanner(Paths.get("Trans.txt"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				
+			
+			while(inputtrans.hasNext()) {
+				
+				
+				int cuenta=inputtrans.nextInt();
+				double cantidad=inputtrans.nextDouble();
+				ra.setAccount(cuenta);
+				ra.setAmount(cantidad);
+
+				compareAndWrite();
+
+				
+			}
+			}catch(NoSuchElementException e) { System.err.println("Nada por aqui");
+			}
+			 catch (IllegalStateException stateException){ System.err.println("Error reading from file. Terminating.");
+		    } 
+			
+			inputtrans.close();
+		}
+		
+		
+		
+		private static void compareAndWrite() {
+			
+		
+			try {
+			       if (writer == null)
+			                writer=new Formatter("nuevomaest.txt");
+			        } catch (FileNotFoundException e) {
+//			             TODO Auto-generated catch block
+			            e.printStackTrace();
+			        }
+			
+		  	if(acc.getAccount()==ra.getAccount()) acc.combinar(ra);
+		  		if(!inputtrans.hasNext())
+		  		
+		  		writer.format("%-8d %-8s %-8s%.2f%n",
+					acc.getAccount(), acc.getFirstName(), acc.getLastName(), acc.getBalance());
+
+		  	}
+		
+			
+			
+		public static void registro() {
+			
+			// Populate log.txt with data looking for transactions with unknown account number
+			try {
+				inputtrans = new Scanner(Paths.get("trans.txt"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			while (inputtrans.hasNext()){
+				RegistroTransaccion record = new RegistroTransaccion();
+				record.setAccount(inputtrans.nextInt());
+				record.setAmount(inputtrans.nextDouble());
+				
+				// Open account file for this loop iteration
+				try {
+					inputAnt= new Scanner(Paths.get("antmaest.txt"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				boolean knownAccount = false;
+				while (inputAnt.hasNext()){
+					Account account = new Account(inputAnt.nextInt(), inputAnt.next(), inputAnt.next(), inputAnt.nextDouble());
+					if (account.getAccount() == record.getAccount()){
+						knownAccount = true;
+					}
+				}
+				if (!knownAccount){
+					
+					try {
+					       if (register == null)
+					                register=new Formatter("registro.txt");
+					        } catch (FileNotFoundException e) {
+//					             TODO Auto-generated catch block
+					            e.printStackTrace();
+					        }
+					
+					register.format("%s%d%n", "cuentas no encontradas ", record.getAccount());
+				}
+			}
+		}
+		
+			 
+	/*public static void nuevo() {
+			
+			// Populate log.txt with data looking for transactions with unknown account number
+		try {
+			inputAnt= new Scanner(Paths.get("antmaest.txt"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		while (inputAnt.hasNext()){
+			Account account = new Account(inputAnt.nextInt(), inputAnt.next(), inputAnt.next(), inputAnt.nextDouble());
+			
+			
+			try {
+				inputtrans = new Scanner(Paths.get("trans.txt"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			boolean vieja = false;
+			while (inputtrans.hasNext()){
+				RegistroTransaccion record = new RegistroTransaccion();
+				record.setAccount(inputtrans.nextInt());
+				record.setAmount(inputtrans.nextDouble());
+				
+				if (record.getAccount() == account.getAccount()){
+					vieja= true;}
+			}
+	
+				if (!vieja){
+					
+					try {
+					       if (writer == null)
+					                writer=new Formatter("nuevomaest.txt");
+					        } catch (FileNotFoundException e) {
+//					             TODO Auto-generated catch block
+					            e.printStackTrace();
+					        }
+					
+					writer.format("%-8d %-8s %-8s%.2f%n",
+							account.getAccount(), account.getFirstName(), account.getLastName(), account.getBalance());
+				}
+			}
+		}*/
+}
+		
+		 	 
