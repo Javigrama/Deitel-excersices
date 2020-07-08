@@ -1,0 +1,129 @@
+package ejer_15_8;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.Formatter;
+import java.util.FormatterClosedException;
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
+public class Student {
+
+	static Formatter file;
+	static Scanner input;
+	static int entrada;
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		createnumeros();
+		solicitud();
+		close();
+		salida();
+		close();
+		
+	}
+
+	public static void solicitud() {
+		
+		input=new Scanner(System.in);
+		
+		
+		System.out.println("Escriba las respuestas de la encuestas."
+				+ "Para finalizar pulse crtl-z");
+		
+		
+		while(input.hasNext()) {
+		
+			try {
+			entrada=Integer.parseInt(input.next());
+			}
+			catch (NumberFormatException e) {System.out.print("Sólo números.\n" );}
+			
+			if(entrada<6&&entrada>0) {
+			try
+	         {
+	            // output new record to file; assumes valid input
+	             file.format("%d ", entrada);                            
+	         } 
+	         catch (FormatterClosedException formatterClosedException)
+	         {
+	            System.err.println("Error writing to file. Terminating.");
+	            break;
+	         } 
+			
+	         catch (NoSuchElementException elementException)
+	         {
+	            System.err.println("Invalid input. Please try again.");
+	            input.nextLine(); // discard input so user can try again
+	         } 
+//			catch (InputMismatchException e) {System.out.print("Debe ser entre 1 y 5");}
+	         System.out.print("? ");
+			
+			}
+			else System.out.print("Debe ser entre 1 y 5");
+			
+			 input.nextLine();
+			
+			}
+		input.close();
+	      }
+	   
+
+			
+		
+	
+	public static void createnumeros() {
+		
+		
+			if(file==null)
+		try {
+			 file=new Formatter("numeros.txt");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	
+	}
+	
+	public static void close() {
+	
+			if(file!=null) file.close();
+			input.close();
+	}
+	
+	public static void salida() {
+		
+		int[] responses=new int[5];
+		
+		
+		try {
+			input=new Scanner(Paths.get("numeros.txt"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+			try {
+				 file=new Formatter("salida.txt");
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		
+		file.format("\t\t%s%n%n\t%-10s%-10s%-10s%-10s%-10s%n%n", "Resultados de las encuentas", "r1", "r2", "r3", "r4", "r5");
+		
+		while(input.hasNext()) {
+			
+			responses[input.nextInt()-1]++;
+					
+
+		}
+		for(int i: responses)
+		file.format("%10d", i);
+//		for (int i: responses)
+//			System.out.println(i+" i ");
+	}
+}
