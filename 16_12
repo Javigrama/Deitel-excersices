@@ -53,7 +53,7 @@ public class ListTest
    {
       ListIterator<String> iterator = list.listIterator();
 //      Iterator<String> itera=list.iterator(); funciona excatamente igual que listiterator que es de list
-//      soloq ue listiterator puede añadir indice para que itere a partir de cuierto indice
+//      soloq ue listiterator puede aÃ±adir indice para que itere a partir de cuierto indice
       while (iterator.hasNext()) 
       {
          String color = iterator.next(); // get item. Sirve porque el iterador es de tipo STring
@@ -71,7 +71,7 @@ public class ListTest
    // print reversed list
    private static void printReversedList(List<String> list)
    {
-      ListIterator<String> iterator = list.listIterator(list.size()); //añade el int que es list size
+      ListIterator<String> iterator = list.listIterator(list.size()); //aÃ±ade el int que es list size
       //para indicar desde donde debe iterar que no es sino desde el ultimo indice y va hacia atras iterando
 
       System.out.printf("%nReversed List:%n");
