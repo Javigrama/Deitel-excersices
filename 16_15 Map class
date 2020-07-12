@@ -1,0 +1,33 @@
+package ejer_16_15;
+
+import java.awt.Color;
+import java.util.HashMap;
+import java.util.Map;
+
+
+public class Colors {
+
+	static String[] colors= {"black", "blue", "cyan", "darkgrey", "grey", "green", "ligthgray", "magenta", 
+			"orange", "pink", "red", "white", "yellow"};
+	static Color[] colorsys= {Color.black, Color.BLUE, Color.CYAN, Color.DARK_GRAY, Color.GRAY,
+			Color.GREEN, Color.LIGHT_GRAY, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, 
+			Color.WHITE, Color.YELLOW};
+	
+	
+		static Map<String, Color> map=new HashMap<>(13);
+		
+
+			
+	public Colors() {
+		
+		int put=0;
+		 for (String token : colors) 
+			 map.put(token, colorsys[put++]);
+		 }
+	
+	public Color setColors(String k) {
+		
+		return map.get(k);
+	}
+	
+}
