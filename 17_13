@@ -1,0 +1,24 @@
+package ejer_17_13;
+// Fig. 17.5: IntStreamOperations.java
+// Demonstrating IntStream operations.
+import java.util.Arrays;
+import java.util.function.IntPredicate;
+import java.util.stream.IntStream;
+
+public class IntStreamOperations
+{
+   public static void main(String[] args)
+   {
+      int[] values = {3, 10, 6, 1, 4, 8, 2, 5, 9, 7};
+
+      // display original values
+      System.out.print("Original values: ");
+  
+      
+      // sum of squares of values with reduce method associative
+      System.out.printf("Sum of squares via reduce method: %d%n", 
+         IntStream.of(values).map(n->n*n)                   
+                  .reduce(0, (x, y) -> x + y)); 
+
+   } 
+} // end class IntStreamOperations
