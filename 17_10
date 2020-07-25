@@ -1,0 +1,28 @@
+package ejer_17_10;
+
+import java.util.Scanner;
+
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import java.util.regex.Pattern;
+
+public class EliminaDuplis {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Pattern pattern=Pattern.compile("\\s");
+		Scanner input=new Scanner(System.in);
+		
+		System.out.println("Escriba una frase");
+		String frase=input.nextLine();
+
+		Stream.of(frase).flatMap(n->pattern.splitAsStream(n)).map(String::toLowerCase).distinct()
+		.sorted(String.CASE_INSENSITIVE_ORDER).
+		collect(Collectors.toList()).	
+		forEach(n->System.out.println(n));
+	
+	
+	}
+}
