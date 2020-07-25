@@ -1,0 +1,36 @@
+package ejer_17_11;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Random;
+
+public class Treinta {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Random ran=new Random();
+		List<Character> list=new ArrayList<>();
+		
+		for(int i=0; i<30; i++) {
+			list.add((char) (97 +ran.nextInt(26)));
+		}
+		System.out.println("Original list");
+		for(Character i: list)
+			System.out.print(i);
+		
+		System.out.println("\n\nList ascending sorted");
+		list.stream().sorted().forEach(System.out::print);
+		
+		System.out.println("\n\nList descending sorted");
+		list.stream().sorted((n, m)-> m-n).forEach(System.out::print);
+		System.out.println();
+		list.stream().sorted(Comparator.reverseOrder()).forEach(System.out::print);
+		
+		System.out.println("\n\nList ascending sorted without doble ");
+		
+		list.stream().distinct().sorted().forEach(System.out::print);
+	}
+
+}
