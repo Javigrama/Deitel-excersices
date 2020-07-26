@@ -1,0 +1,65 @@
+package e18_14;
+
+import java.util.Scanner;
+
+public class Palindromo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner entrada=new Scanner(System.in);
+
+		System.out.println("Escriba una palabra o una frase para saber si es palíndromo");
+		
+		String input=entrada.nextLine();
+		String input2=input.replaceAll(" ", "");
+		
+		
+		System.out.print(probarPalindromo(input2));
+		
+	}
+
+	public static boolean probarPalindromo(String s) {
+		
+		
+		if(s.length()%2!=0) {
+			
+			
+			if(s.length()==1) { 
+			
+				return true;
+			
+			}
+			
+			else if(s.charAt(0)==s.charAt(s.length()-1)) {
+				
+				String sub=s.substring(1, s.length()-1);
+				
+				if(probarPalindromo(sub)) return true;
+			
+			}
+			else return false;
+			
+		}
+		
+
+		if(s.length()%2==0) {
+			
+			
+			if((s.length()==2)&(s.charAt(0)==s.charAt(1))) return true;
+			
+			else if(s.charAt(0)==s.charAt(s.length()-1)) {
+
+				String sub=s.substring(1, s.length()-1);
+				
+				if(probarPalindromo(sub)) return true;
+			
+			}
+			else return false;
+			
+		}
+			
+		return false;
+				
+
+	}
+}
