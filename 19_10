@@ -1,0 +1,59 @@
+package quickSort;
+
+import java.util.Arrays;
+import java.util.Random;
+
+public class QuickSort {
+
+	static Random ran=new Random();
+	static int[] arreglo=new int[10000];
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+			for(int i=0; i<arreglo.length; i++)
+				arreglo[i]=ran.nextInt(100);
+			  
+			System.out.println("Arreglo original ");
+			  
+			  for(int i: arreglo)
+					System.out.print(i+" ");
+
+			  System.out.println();
+
+			  quickSort(arreglo, 0, arreglo.length-1);
+			  
+			  System.out.println("\nArreglo ordenado ");
+			  for(int i: arreglo)
+					System.out.print(i+" ");
+		}
+	
+	public static void quickSort(int[]data, int low, int high ) {
+		
+	int i, j, x;
+	i=low;
+	j=high;
+	x=data[(low+high)/2];
+	
+		do {
+			
+			while((data[i]<x)&&(i<high))i++;
+			while((x<data[j])&&(j>low))j--;
+			
+			if(i<=j) {
+			
+			
+				int aux= data[i];
+				data[i]=data[j];
+				data[j]=aux;
+				i++; j--;
+				
+			}
+		}while(i<=j);
+		
+		if(low<j) quickSort(data, low, j);
+		if(i<high)quickSort(data, i, high);
+		
+	}
+}
+
