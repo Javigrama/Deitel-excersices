@@ -1,0 +1,162 @@
+package cubeta;
+
+import java.util.Random;
+
+public class CubetaS {
+
+
+	static Random ran=new Random();
+	static int[] arreglo=new int[100];
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		for(int i=0; i<arreglo.length; i++)
+			arreglo[i]=1+ran.nextInt(999);
+		  
+		System.out.println("Arreglo original ");
+		  
+		  for(int i: arreglo)
+				System.out.print(i+" ");
+
+		  System.out.println();
+
+		cubeta(arreglo);
+		  
+		  System.out.println("\nArreglo ordenado ");
+		  for(int i: arreglo)
+				System.out.print(i+" ");
+	}
+	
+	public static void cubeta(int[] data) {
+		int put=0;
+		int[][]cubeta=new int[10][data.length-1];
+		
+
+		for(int z=0; z<data.length; z++) 
+			for(int i=0; i<cubeta.length; i++) {
+//				for(int j=0; j<cubeta[i].length; j++) {
+				
+					if(data[z]%10==i) cubeta[i][cubeta[i][put]==0? put:++put]=data[z];
+				}
+			
+		
+		
+		for(int i=0; i<cubeta.length; i++) {
+			System.out.println();
+			for(int j=0; j<cubeta[i].length; j++) 
+				System.out.printf("%-3d ", cubeta[i][j]);
+		}
+		  System.out.println("distribucion unidades");
+		  
+//			------------------------pasada de recopilacion----------------
+			
+
+		int ut=0;
+				for(int i=0; i<cubeta.length; i++) {
+					for(int j=0; j<cubeta[i].length; j++) {
+					
+						if(cubeta[i][j]!=0) data[ut++]=cubeta[i][j];
+					}
+				}
+			
+				System.out.println("\n");
+		for(int z:data)
+			System.out.print(z+" ");
+		  System.out.println();
+		  System.out.println("arreglo ordenado por unidades");
+		  
+//		  -------------------------------------------------------------------------
+		  
+			put=0;
+			for(int i=0; i<cubeta.length; i++) {
+				for(int j=0; j<cubeta[i].length; j++) {
+				
+					cubeta[i][j]= 0;
+				}
+			}
+		  
+
+			for(int z=0; z<data.length; z++) 
+				for(int i=0; i<cubeta.length; i++) {
+//					for(int j=0; j<cubeta[i].length; j++) {
+					
+					if(String.valueOf(data[z]).length()==3) {
+						if((Integer.parseInt(String.valueOf(data[z]).charAt(1)+""))==i) cubeta[i][cubeta[i][put]==0? put:++put]=data[z];}
+					else if ((String.valueOf(data[z]).length()<3)&&(data[z]/10==i)) cubeta[i][cubeta[i][put]==0? put:++put]=data[z];
+					}
+				
+			
+			
+			for(int i=0; i<cubeta.length; i++) {
+				System.out.println();
+				for(int j=0; j<cubeta[i].length; j++) 
+					System.out.printf("%-3d ", cubeta[i][j]);
+			}
+			  System.out.println("distribucion decenas");
+			  
+//				------------------------pasada de recopilacion----------------
+				
+
+			int dut=0;
+					for(int i=0; i<cubeta.length; i++) {
+						for(int j=0; j<cubeta[i].length; j++) {
+						
+							if(cubeta[i][j]!=0) data[dut++]=cubeta[i][j];
+						}
+					}
+				
+					System.out.println("\n");
+			for(int z:data)
+				System.out.print(z+" ");
+			  System.out.println();
+			  System.out.println("arreglo ordenado por decenas");
+//			  --------------------------------------------fin decenas----------------------------
+			  
+			  put=0;
+				for(int i=0; i<cubeta.length; i++) {
+					for(int j=0; j<cubeta[i].length; j++) {
+					
+						cubeta[i][j]= 0;
+					}
+				}
+			  
+				
+				for(int z=0; z<data.length; z++) 
+					for(int i=0; i<cubeta.length; i++) {
+//						for(int j=0; j<cubeta[i].length; j++) {
+						
+						if(String.valueOf(data[z]).length()==3) {
+							if((Integer.parseInt(String.valueOf(data[z]).charAt(0)+""))==i) cubeta[i][cubeta[i][put]==0? put:++put]=data[z];}
+						else if ((String.valueOf(data[z]).length()<3)&&(data[z]/100==i)) cubeta[i][cubeta[i][put]==0? put:++put]=data[z];
+//						else if ((String.valueOf(data[z]).length()<3)) cubeta[0][0++]=data[z];
+						}
+					
+				
+				
+				for(int i=0; i<cubeta.length; i++) {
+					System.out.println();
+					for(int j=0; j<cubeta[i].length; j++) 
+						System.out.printf("%-3d ", cubeta[i][j]);
+				}
+				  System.out.println("distribucion centenas");
+				  
+//					------------------------pasada de recopilacion----------------
+					
+
+				int cut=0;
+						for(int i=0; i<cubeta.length; i++) {
+							for(int j=0; j<cubeta[i].length; j++) {
+							
+								if(cubeta[i][j]!=0) data[cut++]=cubeta[i][j];
+							}
+						}
+					
+						System.out.println("\n");
+				for(int z:data)
+					System.out.print(z+" ");
+				  System.out.println();
+				  System.out.println("arreglo ordenado por centenas");
+	}
+	
+}
